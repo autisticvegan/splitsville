@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Splitsville</title>
+<meta name="description" content="The most expensive divorces ever reported, plus the real numbers behind divorce and alimony.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💔</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=8">
+</head>
+<body>
+<div id="fx" aria-hidden="true"></div>
+<div id="tip" role="tooltip" hidden></div>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="logo" href="#top">💔 Splitsville</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#board">🏆 Leaderboard</a>
+      <a href="#charts">📊 Charts</a>
+      <a href="#buy">🛍️ What it buys</a>
+      <a href="#stats">🧾 The numbers</a>
+      <a href="#kids" id="navKids" hidden>👶 Child support</a>
+      <a href="#vault">🔒 The Vault</a>
+    </nav>
+    <div class="top-actions">
+      <button class="icon-btn" id="soundBtn" aria-pressed="false" title="Sound effects">🔇</button>
+      <button class="pill-btn" id="rainBtn">Make it rain 💸</button>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="floaters" aria-hidden="true" id="floaters"></div>
+    <div class="wrap hero-in">
+      <p class="kicker">Till debt do us part 💍➡️💸</p>
+      <h1>The Top <span class="strike">1,000</span><sup>*</sup> Most Expensive Divorces</h1>
+      <p class="hero-sub"><sup>*</sup>We looked everywhere. Only <b id="heroCount">a few dozen</b> came with public receipts. The rest are sealed tighter than a prenup. 🤐</p>
+      <div class="hero-total">
+        <div class="hero-label">Money that changed hands on this list</div>
+        <div class="hero-num" id="heroTotal">$0</div>
+      </div>
+      <div class="hero-cta">
+        <button class="ring-btn" id="ringBtn" aria-label="Break the ring">💍</button>
+        <div class="ring-copy">
+          <b>Tap the ring.</b><br><span id="ringCount">Go on, nobody's watching.</span>
+        </div>
+        <button class="pill-btn ghost" id="rouletteBtn">🎲 Divorce roulette</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap tiles" id="quick" aria-label="Quick stats"></section>
+
+  <section class="wrap section" id="board">
+    <div class="section-head">
+      <h2>🏆 The leaderboard</h2>
+      <p>Ranked by reported settlement or court award, in US dollars at the time. Tap a card. You'll see.</p>
+    </div>
+    <div class="controls">
+      <label class="search">
+        <span aria-hidden="true">🔎</span>
+        <input type="search" id="q" placeholder="Search a name, a year, a yacht…" autocomplete="off">
+      </label>
+      <div class="seg" role="group" aria-label="Who paid">
+        <button class="seg-btn on" data-payer="all">Everyone</button>
+        <button class="seg-btn" data-payer="m">👨 He paid</button>
+        <button class="seg-btn" data-payer="f">👩 She paid</button>
+      </div>
+      <label class="sort">
+        <span>Sort</span>
+        <select id="sort">
+          <option value="amount">💰 Biggest first</option>
+          <option value="amountAsc">🪙 Smallest first</option>
+          <option value="perDay">⏱️ Most per day married</option>
+          <option value="newest">🆕 Newest</option>
+          <option value="oldest">📼 Oldest</option>
+        </select>
+      </label>
+    </div>
+    <div class="chips" id="cats" role="group" aria-label="Category"></div>
+    <p class="result-line" id="resultLine"></p>
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>No splits match. Love wins this round. 💕</p>
+    <div class="more-wrap"><button class="pill-btn ghost" id="moreBtn" hidden>👀 Show more</button></div>
+  </section>
+
+  <section class="wrap section" id="charts">
+    <div class="section-head">
+      <h2>📊 Charts that need a prenup</h2>
+      <p>Hover or tap any bar for the details.</p>
+    </div>
+    <div class="chart-grid">
+      <figure class="card chart-card">
+        <div class="chart-head">
+          <div>
+            <h3>The Bezos problem 📦</h3>
+            <p class="muted" id="topSub">Top 15 by reported amount.</p>
+          </div>
+          <button class="pill-btn small" id="bezosBtn" aria-pressed="false">🙈 Hide Bezos</button>
+        </div>
+        <div class="bars" id="chartTop"></div>
+      </figure>
+      <figure class="card chart-card">
+        <div class="chart-head">
+          <div>
+            <h3>Most expensive per day married ⏱️</h3>
+            <p class="muted">Settlement ÷ days married, where both years are known.</p>
+          </div>
+        </div>
+        <div class="bars" id="chartDay"></div>
+      </figure>
+      <figure class="card chart-card" id="lineCard" hidden>
+        <div class="chart-head">
+          <div>
+            <h3>America is divorcing less 📉</h3>
+            <p class="muted" id="lineSub">US divorces per 1,000 people.</p>
+          </div>
+        </div>
+        <div class="line-wrap" id="chartLine"></div>
+        <p class="src" id="lineSrc"></p>
+      </figure>
+      <figure class="card chart-card" id="countryCard" hidden>
+        <div class="chart-head">
+          <div>
+            <h3>Splitsville, worldwide 🌍</h3>
+            <p class="muted">Divorces per 1,000 people, latest year available.</p>
+          </div>
+        </div>
+        <div class="bars" id="chartCountry"></div>
+        <p class="src" id="countrySrc"></p>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap section" id="buy">
+    <div class="section-head">
+      <h2>🛍️ What could that buy?</h2>
+      <p>Pick a split and see it in units normal people understand.</p>
+    </div>
+    <div class="card buy-card">
+      <div class="buy-controls">
+        <label>
+          <span>The divorce</span>
+          <select id="buySel"></select>
+        </label>
+        <label>
+          <span>Your yearly income ($)</span>
+          <input type="number" id="income" min="1000" step="1000" value="80610" inputmode="numeric">
+        </label>
+      </div>
+      <div class="buy-amount" id="buyAmount"></div>
+      <div class="buy-grid" id="buyGrid"></div>
+      <p class="src">Prices are rough US ballparks. $80,610 is the 2023 US median household income (Census).</p>
+    </div>
+  </section>
+
+  <section class="wrap section" id="stats">
+    <div class="section-head">
+      <h2>🧾 The numbers behind the drama</h2>
+      <p>Real stats about the money in divorce and alimony, with sources.</p>
+    </div>
+    <div class="chips" id="statGroups" role="group" aria-label="Stat topic"></div>
+    <div class="facts" id="facts"></div>
+  </section>
+
+  <section class="wrap section" id="kids" hidden>
+    <div class="section-head">
+      <h2>👶 Child support: follow the (missing) money</h2>
+      <p>The money that's supposed to follow the kids, how much of it never shows up, and the record-setting checks.</p>
+    </div>
+    <div class="chart-grid">
+      <figure class="card chart-card" id="splitCard" hidden>
+        <div class="chart-head"><div><h3>Did the check actually show up? 📬</h3><p class="muted" id="splitSub"></p></div></div>
+        <div class="seg-rows" id="segBar"></div>
+        <div class="legend" id="segLegend"></div>
+        <p class="src" id="splitSrc"></p>
+      </figure>
+      <figure class="card chart-card" id="gapCard" hidden>
+        <div class="chart-head"><div><h3>Owed vs. actually paid 🕳️</h3><p class="muted">Total US child support due each survey year, split into what got paid and what didn't. All in 2017 dollars.</p></div></div>
+        <div class="legend" id="gapLegend"></div>
+        <div class="bars" id="gapBars"></div>
+        <p class="src" id="gapSrc"></p>
+      </figure>
+      <figure class="card chart-card" id="arrearsCard" hidden>
+        <div class="chart-head">
+          <div><h3 id="arrearsTitle">The IOU pile 📈</h3><p class="muted" id="arrearsSub">Total unpaid back child support owed in the US.</p></div>
+          <div class="seg small" id="progSeg" role="group" aria-label="Metric" hidden>
+            <button class="seg-btn on" data-m="arrears">🕳️ Owed</button>
+            <button class="seg-btn" data-m="collections">💵 Collected</button>
+            <button class="seg-btn" data-m="cases">📁 Cases</button>
+          </div>
+        </div>
+        <div class="line-wrap" id="chartArrears"></div>
+        <p class="src" id="arrearsSrc"></p>
+      </figure>
+      <figure class="card chart-card" id="kidsBoardCard" hidden>
+        <div class="chart-head">
+          <div><h3>The biggest child support checks 🍼</h3><p class="muted" id="kidsSub">Monthly amounts a judge ordered or both sides agreed to.</p></div>
+        </div>
+        <div class="kids-controls">
+          <div class="seg small" id="kidsSeg" role="group" aria-label="Who pays">
+            <button class="seg-btn on" data-payer="all">Everyone</button>
+            <button class="seg-btn" data-payer="m">👨 He pays</button>
+            <button class="seg-btn" data-payer="f">👩 She pays</button>
+          </div>
+          <button class="pill-btn small" id="asksBtn" aria-pressed="false">🙏 Show the asks</button>
+          <button class="pill-btn small ghost" id="kidsTopBtn" aria-pressed="false">🙈 Hide #1</button>
+        </div>
+        <div class="legend" id="kidsLegend" hidden><span class="lg"><i class="sw sw-bar"></i>Ordered or agreed</span><span class="lg"><i class="sw sw-bar ask"></i>🙏 Asked for</span></div>
+        <div class="bars" id="chartKids"></div>
+        <p class="empty" id="kidsEmpty" hidden>Nobody here yet. 🍼</p>
+      </figure>
+    </div>
+    <div class="chips" id="kidGroups" role="group" aria-label="Child support topic"></div>
+    <div class="facts" id="kidFacts"></div>
+  </section>
+
+  <section class="wrap section" id="vault">
+    <div class="section-head">
+      <h2>🔒 The Vault</h2>
+      <p>Famous splits whose price tags never got out. Try to crack one.</p>
+    </div>
+    <div class="vault" id="vaultGrid"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Figures are as reported in the press at the time, in nominal US dollars (pounds converted at period rates). Many are estimates, and the real terms are often confidential. Nothing here is legal or financial advice.</p>
+    <p class="muted">Made with 💔 and 💸.</p>
+  </div>
+</footer>
+
+<script src="data.js?v=7"></script>
+<script src="app.js?v=8"></script>
+</body>
+</html>
