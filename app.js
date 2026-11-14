@@ -214,6 +214,8 @@
   tickItems.push(`🧾 <b>2019</b> Alimony stops being tax-deductible`);
   const csTick = window.CHILD_SUPPORT && window.CHILD_SUPPORT.ticker;
   if (Array.isArray(csTick)) tickItems.push(...csTick);
+  const rwTick = window.RICHEST_WOMEN && window.RICHEST_WOMEN.ticker;
+  if (Array.isArray(rwTick)) tickItems.push(...rwTick);
   const tickHTML = tickItems.map((t) => `<span>${t}</span>`).join("");
   $("#ticker").innerHTML = tickHTML + tickHTML;
 
@@ -246,6 +248,8 @@
     .join("");
 
   const MEDAL = ["🥇", "🥈", "🥉"];
+  // Recipients who later made a Forbes billionaire list (from the richest-women cross-check).
+  const BILLIONAIRES = new Set(((window.RICHEST_WOMEN || {}).board || []).filter((b) => b.ever).map((b) => b.name));
   function yrs(d) {
     if (d.marriedDays || d.months) return `${lengthText(d)} married`;
     if (!d.days) return "";
@@ -257,9 +261,11 @@
     tags.push(`<span class="tag">${CATS[d.cat] || d.cat}</span>`);
     if (d.payer === "f") tags.push(`<span class="tag she">👩 She paid</span>`);
     if (d.award) tags.push(`<span class="tag award">⚖️ Court award</span>`);
+    if (d.payer === "m" && BILLIONAIRES.has(d.b)) tags.push(`<span class="tag rich">👑 She made the billionaire list</span>`);
     if (d.est) tags.push(`<span class="tag est">🤔 Estimate</span>`);
     if (d.orig) tags.push(`<span class="tag">💱 ${d.orig}</span>`);
-    if (d.source) tags.push(`<a class="tag src-tag" href="${d.source}" target="_blank" rel="noopener">📰 Source</a>`);
+    if (d.source) d.source.split(" ; ").forEach((u, i, all) =>
+      tags.push(`<a class="tag src-tag" href="${u}" target="_blank" rel="noopener">📰 Source${all.length > 1 ? ` ${i + 1}` : ""}</a>`));
     const meta = [d.year, yrs(d), d.perDay ? `${money(d.perDay)}/day` : ""].filter(Boolean).join(" · ");
     return `
       <article class="dcard" tabindex="0" data-rank="${d.rank}" style="animation-delay:${Math.min(i, 12) * 30}ms" aria-label="Number ${d.rank}: ${d.a} and ${d.b}, ${money(d.amount)}">
@@ -681,6 +687,135 @@
       { all: "🌈 All", unpaid: "🕳️ Unpaid", program: "🏛️ The system", gender: "👫 Gender", enforcement: "🚔 Enforcement", world: "🌍 World", fun: "🎉 Fun" });
   }
   drawLines();
+
+  // ---------- richest women ----------
+  const RW = window.RICHEST_WOMEN;
+  if (RW && RW.women && RW.women.length) {
+    $("#rich").hidden = false;
+    $("#navRich").hidden = false;
+    // Fixed order = validated palette slot order; groups render in this order too.
+    const PATHS = [
+      { k: "inherited", e: "🧬", l: "Inherited it" },
+      { k: "built", e: "🛠️", l: "Built it" },
+      { k: "widowed", e: "🖤", l: "Widowed" },
+      { k: "divorce", e: "💔", l: "Divorce" },
+      { k: "married", e: "💍", l: "Married to it" },
+    ];
+    const P = Object.fromEntries(PATHS.map((p) => [p.k, p]));
+    const W = RW.women.slice().sort((a, b) => a.rank - b.rank);
+    const N = W.length;
+    const n = Object.fromEntries(PATHS.map((p) => [p.k, W.filter((w) => w.path === p.k).length]));
+    const used = PATHS.filter((p) => n[p.k]);
+    const settlement = (name) => DATA.find((d) => d.b === name);
+    const club = (RW.board || []).filter((b) => b.ever).sort((a, b) => (b.nw || 0) - (a.nw || 0));
+    const heRows = DATA.filter((d) => d.payer === "m").length;
+    const divorced = W.filter((w) => w.path === "divorce");
+    const partly = W.filter((w) => w.path !== "divorce" && w.divorce_money);
+    const listName = RW.list.name, asOf = RW.list.as_of;
+
+    const onBoard = divorced.filter((w) => w.match && settlement(w.match));
+    $("#richIntro").innerHTML = `You'd think divorcing a billionaire is the fast lane onto the rich list. We checked the top ${N} women on ${listName} and every woman who got paid on our leaderboard. ` +
+      `<b>Verdict:</b> ${n.divorce ? `it works, but only ${n.divorce} of the top ${N} got there that way` : `not one of the top ${N} got there by divorce`}. ` +
+      `${n.inherited} inherited it, ${n.widowed} were widowed and ${n.built} built it. The real cheat code is rich parents. 🧬` +
+      (onBoard.length ? ` ${onBoard.length === 1 ? "The one who did is" : `The ${["", "", "two", "three", "four"][onBoard.length] || onBoard.length} who did are`} straight off our leaderboard: ` +
+        onBoard.map((w) => `${w.name} (#${settlement(w.match).rank} here, #${w.rank} richest)`).join(" and ") + "." : "");
+
+    const names = (arr) => arr.map((w) => `${w.name} (#${w.rank})`).join(", ");
+    const tiles = [
+      { e: "💔", v: `${n.divorce} of ${N}`, l: "got there mainly by divorce",
+        t: n.divorce ? names(divorced) + (partly.length ? `. ${partly.length} more got part of it from a divorce.` : ".") : "None of them." },
+      { e: "🧬", v: `${n.inherited} of ${N}`, l: "inherited it from family", t: "Daughters, granddaughters and nieces of the people who built it." },
+      { e: "🔎", v: `${club.length} of ${heRows}`, l: "women on our leaderboard ever became billionaires",
+        t: club.length ? club.slice(0, 4).map((b) => b.name).join(", ") + (club.length > 4 ? " and more." : ".") : "Not one." },
+    ];
+    $("#richTiles").innerHTML = tiles.map((t) => `
+      <div class="tile"><div class="t-emoji">${t.e}</div><div class="t-val">${t.v}</div>
+      <div class="t-label">${t.l}</div><div class="t-note">${t.t}</div></div>`).join("");
+
+    // Waffle: one square per woman, grouped by path, rank order inside each group.
+    const waffle = $("#waffle");
+    const order = used.flatMap((p) => W.filter((w) => w.path === p.k));
+    waffle.innerHTML = order.map((w, i) => {
+      const p = P[w.path];
+      const tipHTML = `<b>#${w.rank} ${w.name}</b>${money(w.nw)}${w.country ? ` · ${w.country}` : ""}<br>${p.e} ${w.detail}` +
+        (w.divorce_note ? `<br>💔 ${w.divorce_note}` : "") + (w.match ? "<br>👉 Tap to see her split" : "");
+      return `<button class="wf p-${p.k} ${w.match ? "link" : ""}" role="listitem" data-name="${w.match || ""}" data-tip="${tipHTML.replace(/"/g, "&quot;")}"
+        aria-label="Number ${w.rank}, ${w.name}, ${money(w.nw)}, ${p.l}" style="animation-delay:${Math.min(i, 120) * 6}ms">${p.e}</button>`;
+    }).join("");
+    bindTips(waffle);
+    // Pop the squares in when the chart scrolls into view.
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { waffle.classList.add("go"); io.disconnect(); } }, { threshold: 0.2 });
+      io.observe(waffle);
+    } else waffle.classList.add("go");
+    $("#waffleSub").textContent = `Each square is one of the ${N} richest women on ${listName} (${asOf}). Tap a path to light it up.`;
+    $("#waffleLegend").innerHTML = used.map((p) => `<button class="lg" data-k="${p.k}" aria-pressed="false"><i class="sw p-${p.k}"></i>${p.e} ${p.l} <span class="n">${n[p.k]}</span></button>`).join("");
+    let lit = null;
+    $("#waffleLegend").addEventListener("click", (e) => {
+      const b = e.target.closest(".lg"); if (!b) return;
+      lit = lit === b.dataset.k ? null : b.dataset.k;
+      $$("#waffleLegend .lg").forEach((x) => x.setAttribute("aria-pressed", x.dataset.k === lit));
+      waffle.classList.toggle("dim", !!lit);
+      $$(".wf", waffle).forEach((sq) => sq.classList.toggle("on", !!lit && sq.classList.contains(`p-${lit}`)));
+      sfx("tick");
+    });
+    const jumpTo = (name) => {
+      const d = settlement(name); if (!d) return;
+      state.q = d.b; state.cat = "all"; state.payer = "all"; $("#q").value = d.b;
+      $$("#board .seg-btn").forEach((x) => x.classList.toggle("on", x.dataset.payer === "all"));
+      $$("#cats .chip").forEach((x) => x.classList.toggle("on", x.dataset.cat === "all"));
+      renderGrid();
+      const card = $(`.dcard[data-rank="${d.rank}"]`); if (!card) return;
+      card.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+      setTimeout(() => { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }, reduced ? 50 : 650);
+    };
+    waffle.addEventListener("click", (e) => {
+      const sq = e.target.closest(".wf"); if (!sq) return;
+      burst(e.clientX, e.clientY, 10, [sq.textContent, "💎", "💸"]);
+      if (sq.dataset.name) { sfx("kaching"); hideTip(); jumpTo(sq.dataset.name); } else sfx("tick");
+    });
+    $("#waffleSrc").innerHTML = `Source: <a href="${RW.list.url}" target="_blank" rel="noopener">${listName}</a>, net worth as of ${asOf}. ` +
+      `How each woman got her money is our call from Forbes profiles and news coverage. A co-founder counts as "built it", even with a husband. ${RW.list.note || ""}`;
+
+    // Leaderboard women who ever made a billionaire list, plus divorce billionaires with no public price tag.
+    const sealed = (RW.extra || []).map((x) => ({ ...x, sealed: true }));
+    const clubRows = club.concat(sealed).sort((a, b) => (b.nw || 0) - (a.nw || 0));
+    if (clubRows.length) {
+      $("#clubCard").hidden = false;
+      const VIA = { divorce: "💔 The settlement is most of it", cofounder: "🛠️ She co-founded the company they split" };
+      barChart($("#chartClub"), clubRows.map((b) => {
+        const d = settlement(b.name);
+        const how = b.sealed
+          ? `<br>🔒 Split from ${b.ex} in ${b.year}. The price tag never got out, so she's not on our leaderboard.<br>👉 ${b.note}`
+          : (d ? `<br>💔 Got ${d.est ? "~" : ""}${money(d.amount)} from ${d.a} in ${d.year}` : "") +
+            `<br>${VIA[b.via] || ""}` + (b.where_now ? `<br>👉 ${b.where_now}` : "");
+        return {
+          label: `${b.gone ? "👋 " : b.sealed ? "🔒 " : ""}${b.name}`, value: b.nw || 0, cls: b.via === "cofounder" ? "ask" : "",
+          text: `${money(b.nw || 0)}${b.gone ? `<span class="wide-only"> in ${b.nw_year}</span>` : ""}`,
+          tip: `<b>${b.name}</b>${money(b.nw || 0)} on the ${b.list}` + (b.gone ? " (her last listing)" : "") + how,
+        };
+      }));
+      const own = clubRows.filter((b) => b.via === "cofounder").length;
+      $("#clubLegend").hidden = !own;
+      $("#clubLegend").innerHTML = `<span class="lg"><i class="sw sw-bar"></i>💔 The divorce made her a billionaire</span><span class="lg"><i class="sw sw-bar ask"></i>🛠️ She co-founded the company they split</span>`;
+      $("#clubSub").textContent = `Everyone on our leaderboard who ever made a Forbes billionaire list` +
+        (sealed.length ? `, plus ${["", "one", "two", "three", "four", "five"][sealed.length] || sealed.length} divorce billionaire${sealed.length === 1 ? "" : "s"} whose price tag never got out (🔒)` : "") +
+        `. Net worth at their latest listing; 👋 = no longer on it.`;
+      $("#clubSrc").textContent = "Source: Forbes World's Billionaires and Forbes 400 lists, via each woman's Forbes profile and news coverage.";
+    }
+
+    // What happened next, for settlements with a notable, sourced epilogue.
+    const later = (RW.board || []).filter((b) => b.where_now).map((b) => ({ b, d: settlement(b.name) })).filter((x) => x.d)
+      .sort((x, y) => y.d.amount - x.d.amount);
+    if (later.length) {
+      $("#nowCard").hidden = false;
+      $("#nowList").innerHTML = later.map(({ b, d }) => `
+        <li><span class="now-emoji" aria-hidden="true">${d.emoji}</span><div>
+          <b>${b.name}</b> <span class="muted">got ${d.est ? "~" : ""}${money(d.amount)} from ${shortName(d.a)}, ${d.year}</span>
+          <div class="now-text">${b.where_now}${b.url ? ` <a class="now-src" href="${b.url}" target="_blank" rel="noopener">📰</a>` : ""}</div>
+        </div></li>`).join("");
+    }
+  }
 
   function bindTips(root) {
     $$("[data-tip]", root).forEach((el) => {

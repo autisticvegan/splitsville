@@ -5,7 +5,7 @@
 // Publicly reported divorce settlements and court awards.
 window.DIVORCES = [
   { a: "Jeff Bezos", b: "MacKenzie Scott", payer: "m", year: 2019, amount: 38000000000, married: 1993, ended: 2019, cat: "tech", emoji: "📦", fact: "She got about 4% of Amazon (≈19.7M shares) and has since given away more than $26 billion of it.", source: "https://www.seattletimes.com/business/bezos-divorce-finalizes-sets-stage-for-38-billion-amazon-stake-transfer/ ; https://www.cnbc.com/make-it/2025/12/13/mackenzie-scott-revealed-her-total-charitable-donations-for-2025.html" },
-  { a: "Bill Gates", b: "Melinda French Gates", payer: "m", year: 2021, amount: 6000000000, est: true, married: 1994, ended: 2021, cat: "tech", emoji: "🪟", fact: "No prenup. Terms stayed private, but billions in stock moved to Melinda within weeks of the filing.", source: "https://www.bloomberg.com/news/articles/2021-08-06/bill-gates-s-cascade-transfers-1-billion-of-canadian-national" },
+  { a: "Bill Gates", b: "Melinda French Gates", payer: "m", year: 2021, amount: 25000000000, est: true, married: 1994, ended: 2021, cat: "tech", emoji: "🪟", fact: "No prenup and the terms were never filed. Filings showed about $6B in stock moving in 2021; Forbes now pegs the whole settlement at $25B. Leaving the Gates Foundation in 2024 came with $12.5B more for her own charity work.", source: "https://www.forbes.com/profile/melinda-french-gates/ ; https://www.forbes.com/sites/kerryadolan/2024/10/01/bill-gates-falls-to-lowest-rank-on-the-forbes-400-in-nearly-25-years/" },
   { a: "Dmitry Rybolovlev", b: "Elena Rybolovleva", payer: "m", year: 2014, amount: 4500000000, award: true, married: 1987, ended: 2014, cat: "biz", emoji: "⚽", fact: "A Geneva court awarded $4.5B, which was slashed on appeal before they settled privately in 2015.", source: "https://money.cnn.com/2015/06/12/news/russian-oligarch-divorce-appeal" },
   { a: "Alec Wildenstein", b: "Jocelyn Wildenstein", payer: "m", year: 1999, amount: 3800000000, est: true, married: 1978, ended: 1999, cat: "biz", emoji: "🎨", fact: "$2.5B up front, plus $100M a year for 13 years. The art-dealing family could afford it.", source: "https://www.cnbc.com/2014/12/29/The-worlds-most-expensive-divorce-settlements.html" },
   { a: "Du Weimin", b: "Yuan Liping", payer: "m", year: 2020, amount: 3200000000, orig: "161.3M Kangtai shares", ended: 2020, cat: "biz", emoji: "💉", fact: "She signed her voting rights back to him, so he kept control of the vaccine maker.", source: "https://www.bloomberg.com/news/articles/2020-06-01/china-s-latest-costly-divorce-is-making-this-woman-a-billionaire" },
@@ -1265,5 +1265,993 @@ window.CHILD_SUPPORT = {
     "🍼 <b>$12.5B</b> in US child support owed in 2022 never arrived",
     "👻 <b>24.5%</b> of parents owed child support got nothing",
     "🕳️ <b>$115.7B</b> in back child support is still owed"
+  ]
+};
+
+
+window.RICHEST_WOMEN = {
+  "list": {
+    "name": "Forbes' 2026 World's Billionaires list",
+    "as_of": "March 2026",
+    "url": "https://www.forbes.com/billionaires/",
+    "note": "Women ranked among women only; ties share a spot."
+  },
+  "women": [
+    {
+      "rank": 1,
+      "name": "Alice Walton",
+      "nw": 134000000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Only daughter of Walmart founder Sam Walton; holds a family stake in Walmart."
+    },
+    {
+      "rank": 2,
+      "name": "Francoise Bettencourt Meyers & family",
+      "nw": 100000000000,
+      "country": "France",
+      "path": "inherited",
+      "detail": "Granddaughter of L'Oreal's founder; became heiress when her mother Liliane Bettencourt died in 2017."
+    },
+    {
+      "rank": 3,
+      "name": "Julia Koch & family",
+      "nw": 81200000000,
+      "country": "United States",
+      "path": "widowed",
+      "detail": "She and her children inherited a 42% Koch stake from husband David Koch, who died in 2019."
+    },
+    {
+      "rank": 4,
+      "name": "Iris Fontbona & family",
+      "nw": 52600000000,
+      "country": "Chile",
+      "path": "widowed",
+      "detail": "Husband Andronico Luksic left his mining and beverage businesses to her and his sons in 2005."
+    },
+    {
+      "rank": 5,
+      "name": "Jacqueline Mars",
+      "nw": 49100000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Owns about one-third of Mars, the company her grandfather Frank Mars founded in 1911."
+    },
+    {
+      "rank": 6,
+      "name": "Rafaela Aponte-Diamant",
+      "nw": 44500000000,
+      "country": "Switzerland",
+      "path": "built",
+      "detail": "Started MSC with husband Gianluigi Aponte in 1970 on a loan-bought ship; each owns 50%."
+    },
+    {
+      "rank": 7,
+      "name": "Savitri Jindal & family",
+      "nw": 39100000000,
+      "country": "India",
+      "path": "widowed",
+      "detail": "Chairs the O.P. Jindal Group founded by her late husband Om Prakash Jindal."
+    },
+    {
+      "rank": 8,
+      "name": "Miriam Adelson & family",
+      "nw": 37500000000,
+      "country": "United States",
+      "path": "widowed",
+      "detail": "Widow of Las Vegas Sands founder Sheldon Adelson (d. 2021); family owns over half of Sands."
+    },
+    {
+      "rank": 9,
+      "name": "Abigail Johnson",
+      "nw": 33200000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Owns about 29% of Fidelity, founded by her grandfather; succeeded her father as CEO in 2014."
+    },
+    {
+      "rank": 10,
+      "name": "Zheng Shuliang & family",
+      "nw": 33200000000,
+      "country": "China",
+      "path": "widowed",
+      "detail": "Family holds China Hongqiao, the aluminum maker founded by her late husband Zhang Shiping (d. 2019)."
+    },
+    {
+      "rank": 11,
+      "name": "Marilyn Simons & family",
+      "nw": 32500000000,
+      "country": "United States",
+      "path": "widowed",
+      "detail": "Widow of Renaissance Technologies founder Jim Simons, who died in 2024."
+    },
+    {
+      "rank": 12,
+      "name": "Elaine Marshall & family",
+      "nw": 30900000000,
+      "country": "United States",
+      "path": "widowed",
+      "detail": "Inherited a Koch stake (about 16% with sons) from husband E. Pierce Marshall, who died in 2006."
+    },
+    {
+      "rank": 13,
+      "name": "Melinda French Gates",
+      "nw": 30300000000,
+      "country": "United States",
+      "path": "divorce",
+      "detail": "Forbes estimates her 2021 divorce settlement from Bill Gates at $25 billion.",
+      "divorce_note": "Forbes estimates her 2021 divorce settlement from Bill Gates at $25 billion, most of her current fortune.",
+      "match": "Melinda French Gates"
+    },
+    {
+      "rank": 14,
+      "name": "Lyndal Stephens Greth & family",
+      "nw": 30000000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Father Autry Stephens founded Endeavor Energy, sold to Diamondback for about $26B; he died in 2024."
+    },
+    {
+      "rank": 15,
+      "name": "Susanne Klatten",
+      "nw": 29700000000,
+      "country": "Germany",
+      "path": "inherited",
+      "detail": "Inherited a 50.1% Altana stake and 12.5% of BMW from her father Herbert Quandt."
+    },
+    {
+      "rank": 16,
+      "name": "MacKenzie Scott",
+      "nw": 28600000000,
+      "country": "United States",
+      "path": "divorce",
+      "detail": "Received a 4% stake in Amazon as part of her 2019 divorce from Jeff Bezos.",
+      "divorce_note": "Got a 4% Amazon stake in her 2019 divorce from Jeff Bezos, the source of her fortune.",
+      "match": "MacKenzie Scott"
+    },
+    {
+      "rank": 17,
+      "name": "Vicky Safra & family",
+      "nw": 27100000000,
+      "country": "Greece",
+      "path": "widowed",
+      "detail": "She and her four children inherited the fortune of banker Joseph Safra, who died in 2020."
+    },
+    {
+      "rank": 18,
+      "name": "Gina Rinehart",
+      "nw": 25500000000,
+      "country": "Australia",
+      "path": "inherited",
+      "detail": "Took over and rebuilt her late father Lang Hancock's financially distressed iron ore company, Hancock Prospecting."
+    },
+    {
+      "rank": 19,
+      "name": "Christy Walton",
+      "nw": 24300000000,
+      "country": "United States",
+      "path": "widowed",
+      "detail": "Inherited a Walmart stake from husband John Walton, son of Sam Walton, after his 2005 death."
+    },
+    {
+      "rank": 20,
+      "name": "Diane Hendricks",
+      "nw": 22300000000,
+      "country": "United States",
+      "path": "built",
+      "detail": "Co-founded ABC Supply with her late husband Ken in 1982 and has chaired it since 2007."
+    },
+    {
+      "rank": 21,
+      "name": "Kwong Siu-hing",
+      "nw": 20700000000,
+      "country": "Hong Kong",
+      "path": "widowed",
+      "detail": "Widow of Sun Hung Kai Properties co-founder Kwok Tak-seng (d. 1990); still its largest shareholder."
+    },
+    {
+      "rank": 22,
+      "name": "Renata Kellnerova & family",
+      "nw": 20200000000,
+      "country": "Czech Republic",
+      "path": "widowed",
+      "detail": "Widow of Petr Kellner (d. 2021); she and her daughters control PPF Group."
+    },
+    {
+      "rank": 23,
+      "name": "Nancy Walton Laurie",
+      "nw": 20000000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited Walmart stock from her father Bud Walton, Sam Walton's brother, when he died in 1995."
+    },
+    {
+      "rank": 24,
+      "name": "Beate Heister",
+      "nw": 19100000000,
+      "country": "Germany",
+      "path": "inherited",
+      "detail": "Daughter of Aldi Sud co-founder Karl Albrecht Sr.; shares the Aldi Sud fortune with her brother."
+    },
+    {
+      "rank": 25,
+      "name": "Zhong Huijuan",
+      "nw": 18700000000,
+      "country": "China",
+      "path": "built",
+      "detail": "Left teaching to run Hansoh, which her husband and a Hong Kong investor started in 1995; now chair and CEO."
+    },
+    {
+      "rank": 26,
+      "name": "Charlene de Carvalho-Heineken & family",
+      "nw": 17900000000,
+      "country": "Netherlands",
+      "path": "inherited",
+      "detail": "Inherited a Heineken stake (now nearly 24%) from her father Freddy Heineken in 2002."
+    },
+    {
+      "rank": 27,
+      "name": "Zhou Qunfei & family",
+      "nw": 17100000000,
+      "country": "Hong Kong",
+      "path": "built",
+      "detail": "Co-founded a watch-parts firm with relatives in a Shenzhen apartment in 1993, the forerunner of Lens Technology; listed 2015."
+    },
+    {
+      "rank": 28,
+      "name": "Antonia Ax:son Johnson & family",
+      "nw": 14800000000,
+      "country": "Sweden",
+      "path": "inherited",
+      "detail": "Fourth-generation owner of Axel Johnson, founded by her great-grandfather; succeeded her father in 1982."
+    },
+    {
+      "rank": 29,
+      "name": "Ann Walton Kroenke",
+      "nw": 14600000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited part of her father Bud Walton's Walmart stake when he died in 1995."
+    },
+    {
+      "rank": 30,
+      "name": "Trudy Cathy White",
+      "nw": 13700000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Only daughter of Chick-fil-A founder Truett Cathy (d. 2014); Forbes calls her a Chick-fil-A heir."
+    },
+    {
+      "rank": 31,
+      "name": "Laurene Powell Jobs",
+      "nw": 13700000000,
+      "country": "United States",
+      "path": "widowed",
+      "detail": "Inherited mostly Apple and Disney shares from her husband Steve Jobs, who died in 2011."
+    },
+    {
+      "rank": 32,
+      "name": "Sandra Ortega Mera",
+      "nw": 13200000000,
+      "country": "Spain",
+      "path": "inherited",
+      "detail": "Inherited about 4.5% of Inditex from her mother, co-founder Rosalia Mera, who died in 2013."
+    },
+    {
+      "rank": 33,
+      "name": "Marijke Mars",
+      "nw": 12300000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited about 8% of Mars when her father Forrest Mars Jr. died in 2016."
+    },
+    {
+      "rank": 34,
+      "name": "Pamela Mars",
+      "nw": 12300000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited about 8% of Mars when her father Forrest Mars Jr. died in 2016."
+    },
+    {
+      "rank": 35,
+      "name": "Valerie Mars",
+      "nw": 12300000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited an estimated 8% stake in Mars from her father Forrest Mars Jr. after he died in 2016."
+    },
+    {
+      "rank": 36,
+      "name": "Victoria Mars",
+      "nw": 12300000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited an estimated 8% stake in Mars from her father Forrest Mars Jr. after he died in 2016."
+    },
+    {
+      "rank": 37,
+      "name": "Francine von Finck & family",
+      "nw": 12300000000,
+      "country": "Germany",
+      "path": "widowed",
+      "detail": "She and her four children inherited the fortune from her late husband August von Finck, who died in 2021."
+    },
+    {
+      "rank": 38,
+      "name": "Zhou Chaonan",
+      "nw": 12200000000,
+      "country": "China",
+      "path": "built",
+      "detail": "Launched her own business in 2000, then set up Range Intelligent Computing in 2009; Forbes rates her self-made."
+    },
+    {
+      "rank": 39,
+      "name": "Nadia Thiele & family",
+      "nw": 11900000000,
+      "country": "Germany",
+      "path": "widowed",
+      "detail": "Inherited her fortune from late husband Heinz Hermann Thiele (Knorr-Bremse), who died in February 2021."
+    },
+    {
+      "rank": 40,
+      "name": "Kirsten Rausing",
+      "nw": 11800000000,
+      "country": "Sweden",
+      "path": "inherited",
+      "detail": "Owns a third of Tetra Laval; grandfather founded Tetra Pak and her late father Gad bought out his brother."
+    },
+    {
+      "rank": 41,
+      "name": "Elizabeth Johnson",
+      "nw": 11600000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Granddaughter of Edward Johnson II, who founded Fidelity Investments in 1946; family stake passed down."
+    },
+    {
+      "rank": 42,
+      "name": "Sherry Brydson",
+      "nw": 11500000000,
+      "country": "Canada",
+      "path": "inherited",
+      "detail": "One of six heirs to the media empire founded by her grandfather Roy Thomson."
+    },
+    {
+      "rank": 43,
+      "name": "Wang Laichun",
+      "nw": 11300000000,
+      "country": "Hong Kong",
+      "path": "built",
+      "detail": "Ex-Foxconn worker who co-founded Apple supplier Luxshare Precision in 2004 with her brother."
+    },
+    {
+      "rank": 44,
+      "name": "Magdalena Martullo-Blocher",
+      "nw": 10300000000,
+      "country": "Switzerland",
+      "path": "inherited",
+      "detail": "Stake in EMS-Chemie came when her father Christoph Blocher sold his shares to her and siblings in 2004."
+    },
+    {
+      "rank": 45,
+      "name": "Blair Parry-Okeden",
+      "nw": 10300000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited a 25% stake in Cox Enterprises when her mother Barbara Cox Anthony died in 2007."
+    },
+    {
+      "rank": 46,
+      "name": "Carrie Perrodo & family",
+      "nw": 10200000000,
+      "country": "France",
+      "path": "widowed",
+      "detail": "Inherited oil company Perenco when her husband Hubert Perrodo died in 2006."
+    },
+    {
+      "rank": 47,
+      "name": "Randa Duncan Williams",
+      "nw": 10200000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited a stake in Enterprise Products, the pipeline firm her father Dan Duncan founded in 1968."
+    },
+    {
+      "rank": 48,
+      "name": "Dannine Avara",
+      "nw": 10100000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited a stake in Enterprise Products Partners, founded by her late father Dan Duncan."
+    },
+    {
+      "rank": 49,
+      "name": "Milane Frantz",
+      "nw": 10100000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited a stake in Enterprise Products Partners after her father Dan Duncan died in 2010."
+    },
+    {
+      "rank": 50,
+      "name": "Marie Besnier Beauvalot",
+      "nw": 9900000000,
+      "country": "France",
+      "path": "inherited",
+      "detail": "Dairy heiress with an estimated 21% of Lactalis, which her grandfather founded in 1933."
+    },
+    {
+      "rank": 51,
+      "name": "Lee Boo-jin",
+      "nw": 9800000000,
+      "country": "South Korea",
+      "path": "inherited",
+      "detail": "Daughter of Samsung patriarch Lee Kun-hee; split his Samsung stakes with her mother and siblings."
+    },
+    {
+      "rank": 52,
+      "name": "Zeng Fangqin",
+      "nw": 9800000000,
+      "country": "Hong Kong",
+      "path": "built",
+      "detail": "Founded Apple parts supplier Lingyi iTech in 2006, per Reuters; Forbes rates her self-made."
+    },
+    {
+      "rank": 53,
+      "name": "Pauline MacMillan Keinath",
+      "nw": 9500000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Descendant of Cargill founder W.W. Cargill; holds an estimated 13% family stake in the company."
+    },
+    {
+      "rank": 54,
+      "name": "Lee Seo-hyun",
+      "nw": 9500000000,
+      "country": "South Korea",
+      "path": "inherited",
+      "detail": "Inherited about 22% of father Lee Kun-hee's Samsung Electronics and C&T stakes in 2021."
+    },
+    {
+      "rank": 55,
+      "name": "Maria Asuncion Aramburuzabala & family",
+      "nw": 9300000000,
+      "country": "Mexico",
+      "path": "inherited",
+      "detail": "Inherited her father's stake in Grupo Modelo at 32; her grandfather co-founded it in 1925."
+    },
+    {
+      "rank": 56,
+      "name": "Massimiliana Landini Aleotti & family",
+      "nw": 9200000000,
+      "country": "Italy",
+      "path": "widowed",
+      "detail": "She and her children inherited Menarini from her late husband Alberto Aleotti in 2014."
+    },
+    {
+      "rank": 57,
+      "name": "Alexandra Schoerghuber & family",
+      "nw": 9100000000,
+      "country": "Germany",
+      "path": "widowed",
+      "detail": "Widow of Stefan Schoerghuber, who inherited his father's fortune; she now chairs the family group's board."
+    },
+    {
+      "rank": 58,
+      "name": "Elisabeth DeLuca & family",
+      "nw": 9000000000,
+      "country": "United States",
+      "path": "widowed",
+      "detail": "Inherited Subway co-founder Fred DeLuca's half of the chain after he died in 2015."
+    },
+    {
+      "rank": 59,
+      "name": "Marie-Hélène Habert-Dassault",
+      "nw": 9000000000,
+      "country": "France",
+      "path": "inherited",
+      "detail": "Heir to the Dassault fortune with her siblings after her father Serge Dassault died in 2018."
+    },
+    {
+      "rank": 60,
+      "name": "Hong Ra-hee",
+      "nw": 8800000000,
+      "country": "South Korea",
+      "path": "widowed",
+      "detail": "Widow of Samsung chairman Lee Kun-hee; inherited about a third of his Samsung Electronics and C&T stakes in 2021."
+    },
+    {
+      "rank": 61,
+      "name": "Lynsi Snyder",
+      "nw": 8700000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Last family heir to In-N-Out, founded by her grandparents; received her final stake via trust at 35."
+    },
+    {
+      "rank": 62,
+      "name": "Tamara Gustavson",
+      "nw": 8600000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Largest shareholder of Public Storage, which her late father B. Wayne Hughes co-founded in 1972."
+    },
+    {
+      "rank": 63,
+      "name": "Ronda Stryker",
+      "nw": 8500000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited about 4% of Stryker Corp. from her parents; her grandfather Homer Stryker founded it."
+    },
+    {
+      "rank": 64,
+      "name": "Denise York & family",
+      "nw": 8500000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Father Edward DeBartolo Sr. bought the 49ers in 1977; she took control from her brother in 2000."
+    },
+    {
+      "rank": 65,
+      "name": "Rekha Jhunjhunwala",
+      "nw": 8300000000,
+      "country": "India",
+      "path": "widowed",
+      "detail": "Inherited a stock portfolio from her late husband, investor Rakesh Jhunjhunwala, who died in 2022."
+    },
+    {
+      "rank": 66,
+      "name": "Sofie Kirk Kristiansen",
+      "nw": 8300000000,
+      "country": "Denmark",
+      "path": "inherited",
+      "detail": "Fourth-generation Lego owner; shares the family's 75% stake with her father and siblings."
+    },
+    {
+      "rank": 67,
+      "name": "Agnete Kirk Thinggaard",
+      "nw": 8300000000,
+      "country": "Denmark",
+      "path": "inherited",
+      "detail": "Fourth-generation Lego owner; splits the family's 75% stake with her father, sister and brother."
+    },
+    {
+      "rank": 68,
+      "name": "Denise Coates",
+      "nw": 8100000000,
+      "country": "United Kingdom",
+      "path": "built",
+      "detail": "Ran family betting shops, then registered Bet365 in 2000 and launched it in 2001; self-made per Forbes."
+    },
+    {
+      "rank": 69,
+      "name": "Tatyana Kim",
+      "nw": 8100000000,
+      "country": "Russia",
+      "path": "built",
+      "detail": "Founded e-commerce retailer Wildberries in 2004 from her Moscow apartment; her then-husband joined later."
+    },
+    {
+      "rank": 70,
+      "name": "Gayle Benson",
+      "nw": 7900000000,
+      "country": "United States",
+      "path": "widowed",
+      "detail": "Inherited the New Orleans Saints and Pelicans from husband Tom Benson after his 2018 death."
+    },
+    {
+      "rank": 71,
+      "name": "Tanya Saadé Zeenny",
+      "nw": 7900000000,
+      "country": "France",
+      "path": "inherited",
+      "detail": "Daughter of CMA CGM founder Jacques Saadé (d. 2018); jointly controls the shipping company with family."
+    },
+    {
+      "rank": 72,
+      "name": "Ling Tang",
+      "nw": 7900000000,
+      "country": "Canada",
+      "path": "built",
+      "detail": "Pre-IPO investor in AppLovin; owns about 5% through an entity called Angel Pride Holdings Ltd."
+    },
+    {
+      "rank": 73,
+      "name": "Judy Faulkner",
+      "nw": 7800000000,
+      "country": "United States",
+      "path": "built",
+      "detail": "Founded medical-records software maker Epic Systems in 1979; CEO with an estimated 43% stake."
+    },
+    {
+      "rank": 74,
+      "name": "Rahel Blocher",
+      "nw": 7700000000,
+      "country": "Switzerland",
+      "path": "inherited",
+      "detail": "Got her EMS-Chemie stake in 2004 when father Christoph Blocher sold his shares to his children."
+    },
+    {
+      "rank": 75,
+      "name": "Peggy Cherng",
+      "nw": 7700000000,
+      "country": "United States",
+      "path": "built",
+      "detail": "Co-founded Panda Express with husband Andrew Cherng in 1983; now co-CEO."
+    },
+    {
+      "rank": 76,
+      "name": "Zong Fuli",
+      "nw": 7700000000,
+      "country": "China",
+      "path": "inherited",
+      "detail": "Inherited a Wahaha stake in 2024 after her father, founder Zong Qinghou, died."
+    },
+    {
+      "rank": 77,
+      "name": "Maria Fernanda Amorim & family",
+      "nw": 7600000000,
+      "country": "Portugal",
+      "path": "widowed",
+      "detail": "Widow of Américo Amorim (d. 2017); she and her daughters inherited his fortune, mainly a Galp stake."
+    },
+    {
+      "rank": 78,
+      "name": "Melanie Perkins",
+      "nw": 7600000000,
+      "country": "Australia",
+      "path": "built",
+      "detail": "Co-founded design software maker Canva in 2013; CEO with an estimated 18% stake."
+    },
+    {
+      "rank": 79,
+      "name": "Maria Angelicoussis",
+      "nw": 7500000000,
+      "country": "Greece",
+      "path": "inherited",
+      "detail": "Took over the shipping group her grandfather founded after her father John's death in 2021."
+    },
+    {
+      "rank": 80,
+      "name": "Dona Bertarelli",
+      "nw": 7500000000,
+      "country": "Switzerland",
+      "path": "inherited",
+      "detail": "Most of her wealth comes from the 2007 sale of family biotech firm Serono for over $13 billion."
+    },
+    {
+      "rank": 81,
+      "name": "Fan Hongwei",
+      "nw": 7500000000,
+      "country": "China",
+      "path": "built",
+      "detail": "Started a textile business with husband Chen Jianhua that grew into Hengli; she chairs Hengli Petrochemical."
+    },
+    {
+      "rank": 82,
+      "name": "Thai Lee",
+      "nw": 7500000000,
+      "country": "United States",
+      "path": "built",
+      "detail": "Bought SHI's predecessor in 1989 with then-husband for under $1 million; now CEO, owns 60%."
+    },
+    {
+      "rank": 83,
+      "name": "Janice McNair & family",
+      "nw": 7300000000,
+      "country": "United States",
+      "path": "widowed",
+      "detail": "Inherited 80% of the NFL's Houston Texans when husband Bob McNair died in 2018; she died July 2026."
+    },
+    {
+      "rank": 84,
+      "name": "Karen Pritzker",
+      "nw": 7200000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "One of 13 billionaire Pritzker heirs; grandfather A.N. Pritzker built Marmon and Hyatt hotels."
+    },
+    {
+      "rank": 85,
+      "name": "Daniela Amodei",
+      "nw": 7000000000,
+      "country": "United States",
+      "path": "built",
+      "detail": "Co-founded AI company Anthropic in 2021 with brother Dario and other ex-OpenAI staff; president."
+    },
+    {
+      "rank": 86,
+      "name": "Edythe Broad & family",
+      "nw": 7000000000,
+      "country": "United States",
+      "path": "widowed",
+      "detail": "Widow of billionaire Eli Broad (d. 2021); Forbes classes her fortune as inherited."
+    },
+    {
+      "rank": 87,
+      "name": "Taylor Thomson",
+      "nw": 7000000000,
+      "country": "Canada",
+      "path": "inherited",
+      "detail": "Heir to grandfather Roy Thomson's media empire; owns about 14% of Thomson Reuters via Woodbridge."
+    },
+    {
+      "rank": 88,
+      "name": "Marian Ilitch & family",
+      "nw": 6900000000,
+      "country": "United States",
+      "path": "built",
+      "detail": "Co-founded Little Caesars Pizza with husband Mike in 1959; owns the chain after his 2017 death."
+    },
+    {
+      "rank": 89,
+      "name": "Marisa Del Vecchio",
+      "nw": 6800000000,
+      "country": "Italy",
+      "path": "inherited",
+      "detail": "Inherited 12.5% of holding company Delfin when her father Leonardo Del Vecchio died in 2022."
+    },
+    {
+      "rank": 90,
+      "name": "Paola Del Vecchio",
+      "nw": 6800000000,
+      "country": "Italy",
+      "path": "inherited",
+      "detail": "Inherited 12.5% of holding company Delfin when her father Leonardo Del Vecchio died in 2022."
+    },
+    {
+      "rank": 91,
+      "name": "Katharine Rayner",
+      "nw": 6800000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited about 17% of Cox Enterprises from her mother Anne Cox Chambers; her grandfather founded it."
+    },
+    {
+      "rank": 92,
+      "name": "Margaretta Taylor",
+      "nw": 6800000000,
+      "country": "United States",
+      "path": "inherited",
+      "detail": "Inherited about 17% of Cox Enterprises from her mother Anne Cox Chambers; her grandfather founded it."
+    },
+    {
+      "rank": 93,
+      "name": "Nicoletta Zampillo",
+      "nw": 6800000000,
+      "country": "Italy",
+      "path": "widowed",
+      "detail": "Widow of Leonardo Del Vecchio (d. 2022); inherited 12.5% of his holding company Delfin."
+    },
+    {
+      "rank": 94,
+      "name": "Marina Budiman",
+      "nw": 6700000000,
+      "country": "Indonesia",
+      "path": "built",
+      "detail": "Co-founded data center company DCI Indonesia in 2011; earlier co-founded internet provider Indonet."
+    },
+    {
+      "rank": 95,
+      "name": "Elizabeth Uihlein",
+      "nw": 6700000000,
+      "country": "United States",
+      "path": "built",
+      "detail": "Started packaging distributor Uline with husband Richard in their basement in 1980; she is president."
+    },
+    {
+      "rank": 96,
+      "name": "Barbara Boehringer",
+      "nw": 6600000000,
+      "country": "Germany",
+      "path": "inherited",
+      "detail": "Heir to Boehringer Ingelheim, the family drugmaker Albert Boehringer founded in 1885."
+    },
+    {
+      "rank": 97,
+      "name": "Isabel Boehringer",
+      "nw": 6600000000,
+      "country": "Germany",
+      "path": "inherited",
+      "detail": "She and 14 family members, all later generations, own equal parts of Boehringer Ingelheim."
+    },
+    {
+      "rank": 98,
+      "name": "Katharina von Baumbach",
+      "nw": 6600000000,
+      "country": "Germany",
+      "path": "inherited",
+      "detail": "Heir to the Boehringer Ingelheim pharmaceutical fortune, a family company founded in 1885."
+    },
+    {
+      "rank": 99,
+      "name": "Ulrike von Baumbach",
+      "nw": 6600000000,
+      "country": "Germany",
+      "path": "inherited",
+      "detail": "She and 14 family members own equal parts of Boehringer Ingelheim, founded 1885."
+    },
+    {
+      "rank": 100,
+      "name": "Wu Yajun",
+      "nw": 6600000000,
+      "country": "China",
+      "path": "built",
+      "detail": "Co-founded property developer Longfor in 1993; her wealth is mainly her Longfor stake."
+    }
+  ],
+  "board": [
+    {
+      "name": "MacKenzie Scott",
+      "ever": true,
+      "list": "Forbes 400 (Sept 2026)",
+      "nw": 27900000000,
+      "nw_year": 2026,
+      "gone": false,
+      "via": "divorce",
+      "where_now": "Forbes says she has given $26.4 billion to more than 2,700 nonprofits, citing her Yield Giving site.",
+      "url": "https://www.forbes.com/profile/mackenzie-scott/"
+    },
+    {
+      "name": "Melinda French Gates",
+      "ever": true,
+      "list": "Forbes 400 (Sept 2026)",
+      "nw": 34600000000,
+      "nw_year": 2026,
+      "gone": false,
+      "via": "divorce",
+      "where_now": "Forbes says she announced a $1 billion donation in 2024 for women's and girls' rights, to be given through 2026, and invests through Pivotal Ventures.",
+      "url": "https://www.forbes.com/profile/melinda-french-gates/"
+    },
+    {
+      "name": "Elena Rybolovleva",
+      "ever": false,
+      "where_now": "A Geneva appeals court cut her 4 billion Swiss franc award to 564 million francs (about $600 million) in 2015. That October they settled privately.",
+      "url": "https://www.cnbc.com/2015/06/22/russian-billionaires-divorce-slashed-by-nearly-4-billion.html"
+    },
+    {
+      "name": "Yuan Liping",
+      "ever": true,
+      "list": "Forbes World's Billionaires 2023",
+      "nw": 1400000000,
+      "nw_year": 2023,
+      "gone": true,
+      "via": "divorce",
+      "where_now": "A rally in Kangtai shares lifted her to $5.5 billion by August 2020. Forbes had her at $1.4 billion on its 2023 list, her last.",
+      "url": "https://www.caixinglobal.com/2020-08-06/chinese-pharma-tycoon-has-worlds-fastest-growing-fortune-101589424.html"
+    },
+    {
+      "name": "Sue Gross",
+      "ever": true,
+      "list": "Forbes World's Billionaires 2026",
+      "nw": 1900000000,
+      "nw_year": 2026,
+      "gone": false,
+      "via": "divorce",
+      "where_now": "Forbes puts her at $1.9B (Nov 2026), up from the roughly $1.3 billion she received in the 2017 divorce from PIMCO cofounder Bill Gross.",
+      "url": "https://www.forbes.com/profile/sue-gross/"
+    },
+    {
+      "name": "Li Qiong",
+      "ever": true,
+      "list": "Forbes World's Billionaires 2026",
+      "nw": 2100000000,
+      "nw_year": 2026,
+      "gone": false,
+      "via": "divorce",
+      "where_now": "Ten years after her 7 billion yuan share settlement, Forbes still counts her a billionaire: $1.5 billion in November 2026.",
+      "url": "https://www.forbes.com/profile/li-qiong/"
+    },
+    {
+      "name": "Nicole Shanahan",
+      "ever": true,
+      "list": "Forbes World's Billionaires 2026",
+      "nw": 1400000000,
+      "nw_year": 2026,
+      "gone": false,
+      "via": "divorce",
+      "where_now": "Forbes says she has donated a chunk of her Google stock to the Bia-Echo Foundation, which she heads.",
+      "url": "https://www.forbes.com/profile/nicole-shanahan/"
+    },
+    {
+      "name": "Elaine Wynn",
+      "ever": true,
+      "list": "Forbes World's Billionaires 2025",
+      "nw": 2000000000,
+      "nw_year": 2025,
+      "gone": true,
+      "via": "cofounder",
+      "where_now": "She pledged $50 million to LACMA, won a 2018 proxy fight at Wynn Resorts, and still owned about 8% of it when she died in 2025.",
+      "url": "https://www.forbes.com/profile/elaine-wynn/"
+    },
+    {
+      "name": "Tatiana Akhmedova",
+      "ever": false,
+      "where_now": "He refused to pay the 2016 London award. In 2021 she took cash and art in a deal Bloomberg valued at about $186 million.",
+      "url": "https://en.wikipedia.org/wiki/Farkhad_Akhmedov"
+    },
+    {
+      "name": "Jamie Cooper",
+      "ever": false,
+      "where_now": "In 2020 the UK Supreme Court backed a $360 million grant from the charity she co-founded with Chris Hohn to her own, Big Win Philanthropy.",
+      "url": "https://caselaw.nationalarchives.gov.uk/uksc/2020/33"
+    },
+    {
+      "name": "Wendy McCaw",
+      "ever": true,
+      "list": "Forbes 400 (1999)",
+      "nw": 1500000000,
+      "nw_year": 1999,
+      "gone": true,
+      "via": "divorce"
+    },
+    {
+      "name": "Sheila Johnson",
+      "ever": true,
+      "list": "Forbes World's Billionaires 2026",
+      "nw": 1200000000,
+      "nw_year": 2026,
+      "gone": false,
+      "via": "cofounder",
+      "where_now": "After her 2002 divorce she sold her BET shares and invested in the Salamander Collection hotels. She also holds stakes in three Washington sports teams through Monumental Sports (Forbes).",
+      "url": "https://www.forbes.com/profile/sheila-johnson/"
+    },
+    {
+      "name": "Heather Mills",
+      "ever": false,
+      "where_now": "Her vegan food manufacturer VBites went into administration on 11 December 2023 (BBC News, cited by Wikipedia).",
+      "url": "https://en.wikipedia.org/wiki/Heather_Mills"
+    },
+    {
+      "name": "Natalia Potanina",
+      "ever": false,
+      "where_now": "In April 2026 a London judge refused to delay her roughly $5 billion claim against Vladimir Potanin and set a final hearing for November 2026.",
+      "url": "https://caselaw.nationalarchives.gov.uk/ewfc/2026/80"
+    },
+    {
+      "name": "Patricia Kluge",
+      "ever": false,
+      "where_now": "She borrowed $65 million to expand her Virginia winery and build luxury homes, then defaulted. Lenders took the winery and her estate, which Donald Trump later bought.",
+      "url": "https://www.forbes.com/2011/03/10/patricia-kluge-lifestyle-billionaire-bankruptcy-estate.html"
+    }
+  ],
+  "extra": [
+    {
+      "name": "Jian Yao",
+      "ex": "Xu Hang",
+      "year": 2020,
+      "nw": 2800000000,
+      "list": "Forbes World's Billionaires 2026",
+      "via": "divorce",
+      "note": "Got a minority stake in Mindray, the medical-device maker her ex co-founded.",
+      "url": "https://www.forbes.com/profile/jian-yao/"
+    },
+    {
+      "name": "Gloria Joseph",
+      "ex": "George Joseph",
+      "year": 1985,
+      "nw": 1600000000,
+      "list": "Forbes World's Billionaires 2026",
+      "via": "divorce",
+      "note": "Got 17% of insurer Mercury General in the divorce and still owns it.",
+      "url": "https://www.forbes.com/profile/gloria-joseph/"
+    },
+    {
+      "name": "Denise Prenosil",
+      "ex": "Ed Stack",
+      "year": 2006,
+      "nw": 1100000000,
+      "list": "Forbes World's Billionaires 2026",
+      "via": "divorce",
+      "note": "Got nearly 5% of Dick's Sporting Goods in the divorce and still owns it.",
+      "url": "https://www.forbes.com/profile/denise-prenosil/"
+    }
+  ],
+  "ticker": [
+    "👑 Only <b>2</b> of the 100 richest women got there by divorce",
+    "🧬 <b>53</b> of the 100 richest women inherited it",
+    "💔 <b>9</b> women on our leaderboard ever made a billionaire list"
   ]
 };

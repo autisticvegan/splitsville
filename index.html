@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
 <div id="fx" aria-hidden="true"></div>
@@ -24,6 +24,7 @@
       <a href="#buy">🛍️ What it buys</a>
       <a href="#stats">🧾 The numbers</a>
       <a href="#kids" id="navKids" hidden>👶 Child support</a>
+      <a href="#rich" id="navRich" hidden>👑 Richest women</a>
       <a href="#vault">🔒 The Vault</a>
     </nav>
     <div class="top-actions">
@@ -221,6 +222,34 @@
     <div class="facts" id="kidFacts"></div>
   </section>
 
+  <section class="wrap section" id="rich" hidden>
+    <div class="section-head">
+      <h2>👑 Marry rich, divorce richer?</h2>
+      <p id="richIntro"></p>
+    </div>
+    <div class="tiles rich-tiles" id="richTiles"></div>
+    <div class="chart-grid rich-grid">
+      <figure class="card chart-card span-all" id="waffleCard">
+        <div class="chart-head">
+          <div><h3>How the richest women got rich 💎</h3><p class="muted" id="waffleSub"></p></div>
+        </div>
+        <div class="legend waffle-legend" id="waffleLegend" role="group" aria-label="Highlight a path"></div>
+        <div class="waffle" id="waffle" role="list"></div>
+        <p class="src" id="waffleSrc"></p>
+      </figure>
+      <figure class="card chart-card" id="clubCard" hidden>
+        <div class="chart-head"><div><h3>Divorced into the billionaire club 💔➡️💰</h3><p class="muted" id="clubSub"></p></div></div>
+        <div class="legend" id="clubLegend" hidden></div>
+        <div class="bars" id="chartClub"></div>
+        <p class="src" id="clubSrc"></p>
+      </figure>
+      <figure class="card chart-card" id="nowCard" hidden>
+        <div class="chart-head"><div><h3>Where did the money go? 🧳</h3><p class="muted">What happened next for some of the big settlements.</p></div></div>
+        <ul class="now-list" id="nowList"></ul>
+      </figure>
+    </div>
+  </section>
+
   <section class="wrap section" id="vault">
     <div class="section-head">
       <h2>🔒 The Vault</h2>
@@ -237,7 +266,7 @@
   </div>
 </footer>
 
-<script src="data.js?v=7"></script>
-<script src="app.js?v=8"></script>
+<script src="data.js?v=9"></script>
+<script src="app.js?v=13"></script>
 </body>
 </html>
