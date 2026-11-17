@@ -3,32 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Splitsville</title>
-<meta name="description" content="The most expensive divorces ever reported, plus the real numbers behind divorce and alimony.">
+<title>Splitsville — Weddings Are Expensive. Leaving Is Pricier.</title>
+<meta name="description" content="115 of the most expensive divorces ever reported ($96.7B and counting), plus the real receipts on alimony, child support, prenups, and who actually gets rich.">
+<meta name="theme-color" content="#fff6ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#170f1c" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Splitsville — The Most Expensive Divorces Ever Reported">
+<meta property="og:description" content="$96.7B in heartbreak across 115 public splits, a courtroom guessing game, itemized burn-rate receipts, and the real stats on alimony &amp; child support.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Splitsville — Weddings Are Expensive. Leaving Is Pricier.">
+<meta name="twitter:description" content="$96.7B in public breakups, itemized divorce receipts, courtroom matchups, and the real numbers behind alimony &amp; child support.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💔</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=13">
+<link rel="stylesheet" href="style.css?v=14">
 </head>
 <body>
 <div id="fx" aria-hidden="true"></div>
 <div id="tip" role="tooltip" hidden></div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
 <header class="topbar">
   <div class="wrap topbar-in">
     <a class="logo" href="#top">💔 Splitsville</a>
     <nav class="nav" aria-label="Sections">
       <a href="#board">🏆 Leaderboard</a>
+      <a href="#game">🎰 Play</a>
       <a href="#charts">📊 Charts</a>
       <a href="#buy">🛍️ What it buys</a>
-      <a href="#stats">🧾 The numbers</a>
+      <a href="#stats">🧾 The fine print</a>
       <a href="#kids" id="navKids" hidden>👶 Child support</a>
       <a href="#rich" id="navRich" hidden>👑 Richest women</a>
-      <a href="#vault">🔒 The Vault</a>
+      <a href="#vault">🔒 NDA Vault</a>
     </nav>
     <div class="top-actions">
-      <button class="icon-btn" id="soundBtn" aria-pressed="false" title="Sound effects">🔇</button>
+      <button class="icon-btn" id="themeBtn" title="Switch light / dark theme" aria-label="Switch color theme">🌙</button>
+      <button class="icon-btn" id="soundBtn" aria-pressed="false" title="Sound effects" aria-label="Toggle sound effects">🔇</button>
       <button class="pill-btn" id="rainBtn">Make it rain 💸</button>
     </div>
   </div>
@@ -41,17 +52,20 @@
     <div class="wrap hero-in">
       <p class="kicker">Till debt do us part 💍➡️💸</p>
       <h1>The Top <span class="strike">1,000</span><sup>*</sup> Most Expensive Divorces</h1>
-      <p class="hero-sub"><sup>*</sup>We looked everywhere. Only <b id="heroCount">a few dozen</b> came with public receipts. The rest are sealed tighter than a prenup. 🤐</p>
+      <p class="hero-sub"><sup>*</sup>We combed through court dockets, SEC filings, and society columns. Only <b id="heroCount">a few dozen</b> splits came with public price tags—the rest are buried under NDAs thicker than a prenuptial binder. 🤐</p>
       <div class="hero-total">
-        <div class="hero-label">Money that changed hands on this list</div>
+        <div class="hero-label">Total wealth redistributed on this page</div>
         <div class="hero-num" id="heroTotal">$0</div>
       </div>
       <div class="hero-cta">
         <button class="ring-btn" id="ringBtn" aria-label="Break the ring">💍</button>
         <div class="ring-copy">
-          <b>Tap the ring.</b><br><span id="ringCount">Go on, nobody's watching.</span>
+          <b>Smash the ring.</b><br><span id="ringCount">Cheaper than retaining counsel at $357/hr.</span>
         </div>
-        <button class="pill-btn ghost" id="rouletteBtn">🎲 Divorce roulette</button>
+        <div class="hero-btns">
+          <button class="pill-btn ghost" id="rouletteBtn">🎲 Divorce roulette</button>
+          <a class="pill-btn" href="#game">⚖️ Who paid more?</a>
+        </div>
       </div>
     </div>
   </section>
@@ -60,13 +74,13 @@
 
   <section class="wrap section" id="board">
     <div class="section-head">
-      <h2>🏆 The leaderboard</h2>
-      <p>Ranked by reported settlement or court award, in US dollars at the time. Tap a card. You'll see.</p>
+      <h2>🏆 The Split Sheet</h2>
+      <p>Ranked by reported settlement or court award, in nominal US dollars. Tap any card to pull the itemized receipt.</p>
     </div>
     <div class="controls">
       <label class="search">
         <span aria-hidden="true">🔎</span>
-        <input type="search" id="q" placeholder="Search a name, a year, a yacht…" autocomplete="off">
+        <input type="search" id="q" placeholder="Search a billionaire, a rock star, a superyacht, &ldquo;prenup&rdquo;…" autocomplete="off">
       </label>
       <div class="seg" role="group" aria-label="Who paid">
         <button class="seg-btn on" data-payer="all">Everyone</button>
@@ -76,32 +90,71 @@
       <label class="sort">
         <span>Sort</span>
         <select id="sort">
-          <option value="amount">💰 Biggest first</option>
-          <option value="amountAsc">🪙 Smallest first</option>
-          <option value="perDay">⏱️ Most per day married</option>
-          <option value="newest">🆕 Newest</option>
-          <option value="oldest">📼 Oldest</option>
+          <option value="amount">💰 Biggest check</option>
+          <option value="amountAsc">🪙 Smallest check</option>
+          <option value="perDay">⏱️ Priciest per day</option>
+          <option value="newest">🆕 Most recent</option>
+          <option value="oldest">📼 Vintage splits</option>
         </select>
       </label>
     </div>
     <div class="chips" id="cats" role="group" aria-label="Category"></div>
-    <p class="result-line" id="resultLine"></p>
+    <div class="chips angles" id="angles" role="group" aria-label="Story angle"></div>
+    <div class="result-bar">
+      <p class="result-line" id="resultLine"></p>
+      <div class="result-actions">
+        <button class="text-btn" id="resetBtn" hidden>↺ Reset filters</button>
+        <button class="pill-btn small ghost" id="shareBoardBtn">🔗 Share view</button>
+      </div>
+    </div>
     <div class="grid" id="grid"></div>
-    <p class="empty" id="empty" hidden>No splits match. Love wins this round. 💕</p>
+    <div class="empty" id="empty" hidden>
+      <p>Zero splits match that filter. Either true love prevailed or their NDA held up in court. 💕🤐</p>
+      <button class="pill-btn small ghost" id="emptyResetBtn">↺ Show everyone again</button>
+    </div>
     <div class="more-wrap"><button class="pill-btn ghost" id="moreBtn" hidden>👀 Show more</button></div>
+  </section>
+
+  <section class="wrap section" id="game">
+    <div class="section-head game-head">
+      <div>
+        <h2>⚖️ Courtroom Clash: Who Paid More?</h2>
+        <p>Two real breakups walk into family court. Tap the couple with the bigger price tag—ties excluded, pride on the line.</p>
+      </div>
+      <div class="game-hud" aria-live="polite">
+        <span class="hud-pill" id="gStreak">🔥 Streak <b>0</b></span>
+        <span class="hud-pill" id="gBest">🏆 Best <b>0</b></span>
+        <span class="hud-pill" id="gAcc">🎯 <b>0/0</b></span>
+        <button class="pill-btn small ghost" id="shareGameBtn" hidden>🔗 Brag</button>
+      </div>
+    </div>
+    <div class="card game-card">
+      <div class="game-arena" id="gameArena">
+        <button class="gcard" id="gLeft" type="button" data-side="0"></button>
+        <div class="game-vs" aria-hidden="true">VS</div>
+        <button class="gcard" id="gRight" type="button" data-side="1"></button>
+      </div>
+      <div class="game-foot" id="gameFoot" hidden>
+        <p class="game-verdict" id="gVerdict"></p>
+        <div class="game-actions">
+          <button class="pill-btn small ghost" id="gInspectBtn" type="button">🧾 Winner's receipt</button>
+          <button class="pill-btn" id="gNextBtn" type="button">Next case ➡️</button>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="wrap section" id="charts">
     <div class="section-head">
-      <h2>📊 Charts that need a prenup</h2>
-      <p>Hover or tap any bar for the details.</p>
+      <h2>📊 Charts That Need a Prenup</h2>
+      <p>Hover or tap any bar for the backstory—or click a couple on the top charts to pull their full receipt.</p>
     </div>
     <div class="chart-grid">
       <figure class="card chart-card">
         <div class="chart-head">
           <div>
             <h3>The Bezos problem 📦</h3>
-            <p class="muted" id="topSub">Top 15 by reported amount.</p>
+            <p class="muted" id="topSub">Top 15 payouts. See why everyone below #2 looks like a rounding error?</p>
           </div>
           <button class="pill-btn small" id="bezosBtn" aria-pressed="false">🙈 Hide Bezos</button>
         </div>
@@ -110,8 +163,8 @@
       <figure class="card chart-card">
         <div class="chart-head">
           <div>
-            <h3>Most expensive per day married ⏱️</h3>
-            <p class="muted">Settlement ÷ days married, where both years are known.</p>
+            <h3>Daily burn rate ⏱️</h3>
+            <p class="muted">Settlement ÷ days married (where both dates are known). Sleeping still counts as billable hours.</p>
           </div>
         </div>
         <div class="bars" id="chartDay"></div>
@@ -130,7 +183,7 @@
         <div class="chart-head">
           <div>
             <h3>Splitsville, worldwide 🌍</h3>
-            <p class="muted">Divorces per 1,000 people, latest year available.</p>
+            <p class="muted">Annual divorces per 1,000 residents, latest available year. Resort islands lead; Catholic strongholds trail.</p>
           </div>
         </div>
         <div class="bars" id="chartCountry"></div>
@@ -141,13 +194,13 @@
 
   <section class="wrap section" id="buy">
     <div class="section-head">
-      <h2>🛍️ What could that buy?</h2>
-      <p>Pick a split and see it in units normal people understand.</p>
+      <h2>🛍️ Spend Someone Else's Settlement</h2>
+      <p>Pick a breakup, plug in an income, and translate billionaire heartbreak into units mortals actually understand.</p>
     </div>
     <div class="card buy-card">
       <div class="buy-controls">
         <label>
-          <span>The divorce</span>
+          <span>The breakup</span>
           <select id="buySel"></select>
         </label>
         <label>
@@ -155,16 +208,25 @@
           <input type="number" id="income" min="1000" step="1000" value="80610" inputmode="numeric">
         </label>
       </div>
+      <div class="chips buy-presets" id="incPresets" role="group" aria-label="Income presets">
+        <button class="chip on" type="button" data-inc="80610">🇺🇸 Median household ($80.6K)</button>
+        <button class="chip" type="button" data-inc="69500">🍎 US teacher ($69.5K)</button>
+        <button class="chip" type="button" data-inc="165000">⚖️ Divorce lawyer ($165K)</button>
+        <button class="chip" type="button" data-inc="16300000">🎩 S&amp;P 500 CEO ($16.3M)</button>
+      </div>
       <div class="buy-amount" id="buyAmount"></div>
       <div class="buy-grid" id="buyGrid"></div>
-      <p class="src">Prices are rough US ballparks. $80,610 is the 2023 US median household income (Census).</p>
+      <div class="buy-foot">
+        <p class="src">US ballpark prices ($357/hr lawyer = Clio 2026; $4,100 uncontested divorce = Martindale-Nolo; $80,610 = Census median household income).</p>
+        <button class="pill-btn small ghost" id="shareBuyBtn" type="button">🔗 Copy this math</button>
+      </div>
     </div>
   </section>
 
   <section class="wrap section" id="stats">
     <div class="section-head">
-      <h2>🧾 The numbers behind the drama</h2>
-      <p>Real stats about the money in divorce and alimony, with sources.</p>
+      <h2>🧾 The Fine Print on Breaking Up</h2>
+      <p>What divorce and alimony actually cost people without a family office—sourced from the IRS, Census, and state statutes.</p>
     </div>
     <div class="chips" id="statGroups" role="group" aria-label="Stat topic"></div>
     <div class="facts" id="facts"></div>
@@ -172,8 +234,8 @@
 
   <section class="wrap section" id="kids" hidden>
     <div class="section-head">
-      <h2>👶 Child support: follow the (missing) money</h2>
-      <p>The money that's supposed to follow the kids, how much of it never shows up, and the record-setting checks.</p>
+      <h2>👶 Child Support: Follow the (Missing) Money</h2>
+      <p>Billions ordered, billions ghosted, stimulus checks intercepted—plus the wildest monthly requests ever handed to a family judge.</p>
     </div>
     <div class="chart-grid">
       <figure class="card chart-card" id="splitCard" hidden>
@@ -183,7 +245,7 @@
         <p class="src" id="splitSrc"></p>
       </figure>
       <figure class="card chart-card" id="gapCard" hidden>
-        <div class="chart-head"><div><h3>Owed vs. actually paid 🕳️</h3><p class="muted">Total US child support due each survey year, split into what got paid and what didn't. All in 2017 dollars.</p></div></div>
+        <div class="chart-head"><div><h3>Owed vs. actually paid 🕳️</h3><p class="muted">Total US child support due each survey year, split into what arrived and what vanished. All in 2017 dollars.</p></div></div>
         <div class="legend" id="gapLegend"></div>
         <div class="bars" id="gapBars"></div>
         <p class="src" id="gapSrc"></p>
@@ -202,7 +264,7 @@
       </figure>
       <figure class="card chart-card" id="kidsBoardCard" hidden>
         <div class="chart-head">
-          <div><h3>The biggest child support checks 🍼</h3><p class="muted" id="kidsSub">Monthly amounts a judge ordered or both sides agreed to.</p></div>
+          <div><h3>The biggest child support checks 🍼</h3><p class="muted" id="kidsSub">Monthly amounts a judge ordered or both sides signed off on.</p></div>
         </div>
         <div class="kids-controls">
           <div class="seg small" id="kidsSeg" role="group" aria-label="Who pays">
@@ -215,7 +277,7 @@
         </div>
         <div class="legend" id="kidsLegend" hidden><span class="lg"><i class="sw sw-bar"></i>Ordered or agreed</span><span class="lg"><i class="sw sw-bar ask"></i>🙏 Asked for</span></div>
         <div class="bars" id="chartKids"></div>
-        <p class="empty" id="kidsEmpty" hidden>Nobody here yet. 🍼</p>
+        <p class="empty" id="kidsEmpty" hidden>Nobody in that column yet. 🍼</p>
       </figure>
     </div>
     <div class="chips" id="kidGroups" role="group" aria-label="Child support topic"></div>
@@ -224,14 +286,14 @@
 
   <section class="wrap section" id="rich" hidden>
     <div class="section-head">
-      <h2>👑 Marry rich, divorce richer?</h2>
+      <h2>👑 Marry Rich, Divorce Richer?</h2>
       <p id="richIntro"></p>
     </div>
     <div class="tiles rich-tiles" id="richTiles"></div>
     <div class="chart-grid rich-grid">
       <figure class="card chart-card span-all" id="waffleCard">
         <div class="chart-head">
-          <div><h3>How the richest women got rich 💎</h3><p class="muted" id="waffleSub"></p></div>
+          <div><h3>How the 100 richest women actually got rich 💎</h3><p class="muted" id="waffleSub"></p></div>
         </div>
         <div class="legend waffle-legend" id="waffleLegend" role="group" aria-label="Highlight a path"></div>
         <div class="waffle" id="waffle" role="list"></div>
@@ -244,7 +306,7 @@
         <p class="src" id="clubSrc"></p>
       </figure>
       <figure class="card chart-card" id="nowCard" hidden>
-        <div class="chart-head"><div><h3>Where did the money go? 🧳</h3><p class="muted">What happened next for some of the big settlements.</p></div></div>
+        <div class="chart-head"><div><h3>Where did the settlement go? 🧳</h3><p class="muted">Philanthropy, sports empires, appeals courts, and one Trump-bought winery.</p></div></div>
         <ul class="now-list" id="nowList"></ul>
       </figure>
     </div>
@@ -252,21 +314,38 @@
 
   <section class="wrap section" id="vault">
     <div class="section-head">
-      <h2>🔒 The Vault</h2>
-      <p>Famous splits whose price tags never got out. Try to crack one.</p>
+      <h2>🔒 The NDA Vault</h2>
+      <p>Blockbuster splits whose price tags never leaked. Tap a file three times to shake loose the public breadcrumbs.</p>
     </div>
     <div class="vault" id="vaultGrid"></div>
   </section>
 </main>
 
+<div class="modal-backdrop" id="receiptModal" hidden>
+  <div class="receipt" role="dialog" aria-modal="true" aria-labelledby="rcTitle" tabindex="-1">
+    <div class="rc-bar">
+      <div class="rc-nav">
+        <button class="icon-btn small" id="rcPrev" type="button" title="Previous split (←)" aria-label="Previous split">←</button>
+        <button class="icon-btn small" id="rcNext" type="button" title="Next split (→)" aria-label="Next split">→</button>
+      </div>
+      <span class="rc-stamp">🧾 OFFICIAL HEARTBREAK RECEIPT</span>
+      <button class="icon-btn small" id="rcClose" type="button" title="Close (Esc)" aria-label="Close receipt">✕</button>
+    </div>
+    <div id="rcBody"></div>
+  </div>
+</div>
+
 <footer class="footer">
-  <div class="wrap">
-    <p>Figures are as reported in the press at the time, in nominal US dollars (pounds converted at period rates). Many are estimates, and the real terms are often confidential. Nothing here is legal or financial advice.</p>
-    <p class="muted">Made with 💔 and 💸.</p>
+  <div class="wrap footer-in">
+    <div>
+      <p>Figures are as reported in the press or court filings at the time, in nominal US dollars (foreign currencies converted at period rates). Many settlements are estimates—the real paperwork is locked in a lawyer's safe. Nothing here is legal, financial, or romantic advice.</p>
+      <p class="muted">Made with 💔, 💸, and zero billable hours.</p>
+    </div>
+    <a class="pill-btn small ghost" href="#top">↑ Back to top</a>
   </div>
 </footer>
 
 <script src="data.js?v=9"></script>
-<script src="app.js?v=13"></script>
+<script src="app.js?v=14"></script>
 </body>
 </html>
